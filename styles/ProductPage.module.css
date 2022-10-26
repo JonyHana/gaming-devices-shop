@@ -1,0 +1,20 @@
+.container {
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.purchaseContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.purchaseContainerOptions {
+    background-color: grey;
+    height: 480px;
+    width: 20%;
+}
