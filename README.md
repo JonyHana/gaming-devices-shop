@@ -1,1 +1,2 @@
 # gaming-devices-shop
+test
