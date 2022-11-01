@@ -6,12 +6,27 @@ import styles from '../../../styles/ProductPage.module.css';
 const product = ({ productInfo }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     setQuantity(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const res = await fetch(
+      `${server}/api/cartadd`,
+      {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          'product': {
+            'id': productInfo.id,
+            'quantity': quantity
+          }
+        })
+      }
+    );
+
     console.log(`add to cart -> quantity: ${quantity}`);
   }
 

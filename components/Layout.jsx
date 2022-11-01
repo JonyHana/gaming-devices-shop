@@ -1,7 +1,17 @@
 import Head from 'next/head';
 import Navbar from './Navbar';
 
+function initCookieUID() {
+  // TODO: set uuid userid (for cart)
+}
+
+function checkForCookieUID() {
+  return false;
+}
+
 const Layout = ({ children }) => {
+  const [hasCookies, setHasCookies] = useState(checkForCookieUID());
+
   return (
     <>
         <Head>
@@ -10,6 +20,7 @@ const Layout = ({ children }) => {
         </Head>
         <Navbar />
         {children}
+        {hasCookies ? <div></div> : null}
     </>
   )
 }
