@@ -3,6 +3,22 @@ import { server } from '../../../config/index';
 
 import styles from '../../../styles/ProductPage.module.css';
 
+function storeCartCookies(itemId, quantity) {
+  let newCookie = JSON.parse(localStorage.getItem('cart')) || {};
+  
+  if (itemId in newCookie) {
+    let q = parseInt(newCookie[itemId]);
+    newCookie[itemId] = q + quantity;
+  }
+  else {
+    newCookie[itemId] = quantity;
+  }
+
+  localStorage.setItem('cart', JSON.stringify(newCookie));
+
+  console.log('updated cart', localStorage.getItem('cart'));
+}
+
 const product = ({ productInfo }) => {
   const [quantity, setQuantity] = useState(1);
 
@@ -13,7 +29,7 @@ const product = ({ productInfo }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const res = await fetch(
+    /*const res = await fetch(
       `${server}/api/cartadd`,
       {
         method: 'POST',
@@ -25,9 +41,12 @@ const product = ({ productInfo }) => {
           }
         })
       }
-    );
+    );*/
 
-    console.log(`add to cart -> quantity: ${quantity}`);
+    storeCartCookies(
+      productInfo.id.toString(),
+      parseInt(quantity)
+    );
   }
 
   return (

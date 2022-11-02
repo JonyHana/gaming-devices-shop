@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { useEffect } from "react";
+import Link from "next/link";
 
 import style from '../styles/Navbar.module.css';
 
@@ -15,7 +15,6 @@ const Navbar = () => {
     <nav className={style.navbar}>
       <ul className={style.navbarLinks}>
         <li><Link href='/'>Home</Link></li>
-        <li><Link href='/about'>About</Link></li>
         <li><Link href='/cart'>Cart</Link></li>
       </ul>
     </nav>

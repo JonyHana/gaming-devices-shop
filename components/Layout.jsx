@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Navbar from './Navbar';
 
-function initCookieUID() {
-  // TODO: set uuid userid (for cart)
+function initCookies() {
 }
 
-function checkForCookieUID() {
+function checkForCookies() {
   return false;
 }
 
 const Layout = ({ children }) => {
-  const [hasCookies, setHasCookies] = useState(checkForCookieUID());
+  const [hasCookies, setHasCookies] = useState(checkForCookies());
 
   return (
     <>
@@ -20,7 +20,10 @@ const Layout = ({ children }) => {
         </Head>
         <Navbar />
         {children}
-        {hasCookies ? <div></div> : null}
+        {hasCookies ? // TODO: cookie warning popup overlay on bottom of page.
+          <div>
+          </div>
+        : null}
     </>
   )
 }
