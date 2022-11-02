@@ -3,8 +3,12 @@ import { server } from '../../../config/index';
 
 import styles from '../../../styles/ProductPage.module.css';
 
+function getCartCookie() {
+  return JSON.parse(localStorage.getItem('cart'));
+}
+
 function storeCartCookies(itemId, quantity) {
-  let newCookie = JSON.parse(localStorage.getItem('cart')) || {};
+  let newCookie = getCartCookie();
   
   if (itemId in newCookie) {
     let q = parseInt(newCookie[itemId]);
@@ -16,7 +20,7 @@ function storeCartCookies(itemId, quantity) {
 
   localStorage.setItem('cart', JSON.stringify(newCookie));
 
-  console.log('updated cart', localStorage.getItem('cart'));
+  //console.log('updated cart', localStorage.getItem('cart'));
 }
 
 const product = ({ productInfo }) => {
@@ -28,25 +32,16 @@ const product = ({ productInfo }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    /*const res = await fetch(
-      `${server}/api/cartadd`,
-      {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          'product': {
-            'id': productInfo.id,
-            'quantity': quantity
-          }
-        })
-      }
-    );*/
 
-    storeCartCookies(
-      productInfo.id.toString(),
-      parseInt(quantity)
-    );
+    if (getCartCookie() !== null) {
+      storeCartCookies(
+        productInfo.id.toString(),
+        parseInt(quantity)
+      );
+    }
+    else {
+      alert('You must accept usage of cookies before adding items to your cart.');
+    }
   }
 
   return (

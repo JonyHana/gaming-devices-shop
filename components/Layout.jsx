@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Navbar from './Navbar';
 
-function initCookies() {
-}
-
-function checkForCookies() {
-  return false;
-}
-
 const Layout = ({ children }) => {
-  const [hasCookies, setHasCookies] = useState(checkForCookies());
+  const [hasCookies, setHasCookies] = useState(true);
 
+  useEffect(() => {
+    setHasCookies(localStorage.getItem('cart') ? true : false);
+  }, []);
+
+  const buttonAcceptCookies = (e) => {
+    localStorage.setItem('cart', '{}');
+    setHasCookies(true);
+  }
+  
   return (
     <>
         <Head>
@@ -20,9 +22,11 @@ const Layout = ({ children }) => {
         </Head>
         <Navbar />
         {children}
-        {hasCookies ? // TODO: cookie warning popup overlay on bottom of page.
-          <div>
-          </div>
+        {!hasCookies
+        ? <div className='cookie-popup'>
+          <span>This site uses cookies to provide and improve your experience. By using this site, you consent to the use of cookies.</span>
+          <button onClick={buttonAcceptCookies}>Accept Cookies</button>
+        </div>
         : null}
     </>
   )
